@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Traceability_API</RootNamespace>
+    <RootNamespace>TraceabilityAPI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,8 +17,8 @@
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="2.0.5" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.0" />
 
   </ItemGroup>
 
