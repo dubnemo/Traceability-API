@@ -1,0 +1,186 @@
+[
+  {
+    "criticalTrackingEventType": "Transfer",
+    "timePeriod": {
+      "startDateTime": "2023-09-22 08:34:01.034-06:00",
+      "endDateTime": "2023-09-22 08:54:01.343-06:00"
+    },
+    "geospatial": {
+      "typeCode": "Multi-Polygon",
+      "uuid": "e3a8aec7-f2a2-4cb3-a5c7-02358c588002",
+      "sourceId": "OEM Platform",
+      "partyId": "OEM Party Id",
+      "description": "Back 40",
+      "formatCode": "GeoJSON",
+      "value": " [           [             [100.0, 0.0],             [101.0, 0.0],             [101.0, 1.0],             [100.0, 1.0],             [100.0, 0.0]           ]         ]",
+      "uri": "https://api.oemplatform.com/field/e3a8aec7-f2a2-4cb3-a5c7-02358c588002",
+      "geographicalRegionCode": {
+        "content": "Midwest IA",
+        "typeCode": "SupplyShed"
+      }
+    },
+    "traceableResourceUnit": [
+      {
+        "typeCode": "Source",
+        "id": "1",
+        "uuid": "de79409d-2477-48ae-8db7-aea73f2da29c",
+        "sourceId": "string",
+        "partyId": "OEM Name",
+        "itemInstance": [
+          {
+            "lot": [
+              {
+                "typeCode": "Lot",
+                "id": ""
+              }
+            ],
+            "item": {
+              "manufacturerItemIdentification": {
+                "id": ""
+              },
+              "gtinid": "",
+              "brandName": "Croplan",
+              "varietyName": "",
+              "itemTreatment": [
+                {
+                  "lot": {
+                    "typeCode": "",
+                    "id": ""
+                  },
+                  "substance": [
+                    {
+                      "id": "",
+                      "quantity": null,
+                      "registrationStatus": [
+                        {
+                          "id": "",
+                          "partyId": "EPA",
+                          "code": "Active"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "quantity": null
+          }
+        ],
+        "status": {
+          "code": "Active",
+          "effectiveTimePeriod": {
+            "startDateTime": "2023-08-09",
+            "endDateTime": ""
+          }
+        },
+        "container": {
+          "typeCode": "Planter_Box",
+          "id": "1",
+          "uuid": "2b4847dd-a745-43dd-b1dd-0af3c6ba9de2",
+          "sourceId": "string",
+          "partyId": "",
+          "relatedId": [
+            {
+              "id": "string",
+              "uuid": "",
+              "sourceId": "string",
+              "partyId": ""
+            }
+          ],
+          "description": "Kinze 940",
+          "capacity": {
+            "typeCode": "Specified",
+            "maximumVolumeMeasure": {
+              "content": 950,
+              "unitCode": "BU"
+            },
+            "maximumWeightMeasure": {
+              "content": 53200,
+              "unitCode": "LBS"
+            }
+          },
+          "containerState": [
+            {
+              "typeCode": "Capacity",
+              "status": {
+                "code": "EMPTY",
+                "reasonCode": "",
+                "reason": "",
+                "effectiveTimePeriod": {
+                  "typeCode": "Epoch",
+                  "startDateTime": "",
+                  "endDateTime": ""
+                }
+              },
+              "currentMaximumCapacity": {
+                "partyId": "Jeremy",
+                "reasonCode": "COMPACTION",
+                "reason": "Jeremy said so - higher moisture content.",
+                "effectiveTimePeriod": {
+                  "startDateTime": "2023-07-23 11:34:01-05:00",
+                  "endDateTime": ""
+                },
+                "statusIndicator": "Active",
+                "currentDateTime": "2023-08-01 11:34:01-05:00",
+                "maximumVolumeMeasure": {
+                  "content": 800,
+                  "unitCode": "BU"
+                },
+                "maximumWeightMeasure": {
+                  "content": 48000,
+                  "unitCode": "LBS"
+                }
+              },
+              "availableVolumeMeasure": 800,
+              "availableWeightMeasure": 48000,
+              "startMaterialVolumeMeasure": 0,
+              "startMaterialWeightMeasure": 0,
+              "endMaterialVolumeMeasure": null,
+              "endMaterialWeightMeasure": null
+            }
+          ]
+        }
+      }
+    ],
+    "keyDataElement": [
+      {
+        "typeCode": "shipment.id",
+        "id": "12332",
+        "sourceId": "AgVance",
+        "partyId": "RetailerA",
+        "name": "Retailer Shipment Identifier"
+      }
+    ],
+    "operation": {
+      "description": "",
+      "typeCode": "planting"
+    },
+    "operatorParty": [
+      {
+        "typeCode": "",
+        "id": "",
+        "name": ""
+      }
+    ],
+    "publisherParty": [
+      {
+        "typeCode": "",
+        "id": "",
+        "name": ""
+      }
+    ],
+    "relatedDatasetMetadataReference": [
+      {
+        "id": [
+          "a4ebaf89-a71b-44d6-8dec-1c0f4cf0400d"
+        ],
+        "uri": "https://farmer.oemplanform.com/processed-dataset/a4ebaf89-a71b-44d6-8dec-1c0f4cf0400d",
+        "publicationDateTime": "2023-05-02 09:32:34.342-05:00",
+        "datasetTypeCode": "Processed",
+        "processCategory": {
+          "code": "planting"
+        }
+      }
+    ]
+  }
+]
