@@ -1,4 +1,6 @@
 
+using System.Net;
+
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 
@@ -21,7 +23,7 @@ namespace TraceabilityAPI;
 
 public class TraceabilityAPI
 {
-    private readonly ILogger<TraceabilityAPI> _logger;
+
     static CosmosNoSQLAdapter? db;
 
     // Use this going forward:
@@ -33,36 +35,34 @@ public class TraceabilityAPI
     // const string sqlSetupFiles = @"SELECT * FROM c where c.shipmentReference.shipFromParty.location.glnid ='{1}' AND c.shipmentReference.id = '{0}' order by c.displayName";
 
 
-    // public IList<IError> faErrors { get; set; }
-
-    public TraceabilityAPI(ILogger<TraceabilityAPI> logger)
-    {
-        _logger = logger;
-    }
-
     [Function("CreateCriticalTrackingEventList")]
-    public async Task<IActionResult> CreateCriticalTrackingEventList([HttpTrigger(AuthorizationLevel.Function, "post",
-        Route = "traceability-api/v1/critical-tracking-event")] HttpRequest req, ILogger _logger)
+    public async Task<HttpResponseData> CreateCriticalTrackingEventList([HttpTrigger(AuthorizationLevel.Function, "post",
+        Route = "traceability-api/v1/critical-tracking-event")] HttpRequestData req, FunctionContext context)
     {
+
+
         IO.Swagger.Models.CriticalTrackingEventList? payload = null;
 
         string errorMsg = "";
-        string logMessage = "";
-        string methodScope = "FunctionAppTraceabilityAPI.CreateCriticalTrackingEventList - ";
+        string logMessage = " - received request";
+        var _logger = context.GetLogger(context.FunctionDefinition.Name);
+        _logger.LogInformation($"[{context.FunctionDefinition.Name}] + {logMessage}");
+
         dynamic? rs = null;
-        int arrayCounter = 0;
+
+        HttpResponseData response;
 
         var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
         payload = Newtonsoft.Json.JsonConvert.DeserializeObject<IO.Swagger.Models.CriticalTrackingEventList>(requestBody);
         if (payload is null)
         {
             errorMsg = "Failed to deserialize request body to CriticalTrackingEventList.";
-            _logger.LogError(methodScope + errorMsg);
-            return new BadRequestObjectResult("InlogMessagevalid payload.");
+            response = req.CreateResponse(HttpStatusCode.PreconditionRequired); // 428 Precondition Required
+            await response.WriteAsJsonAsync(new { function = context.FunctionDefinition.Name, error = true, errorMsg = errorMsg });
+            return response;
         }
-        logMessage = "Deserialized request body successfully.";
-        _logger.LogInformation(methodScope + logMessage);
-
+        logMessage = " = Deserialized request body successfully.";
+        _logger.LogInformation($"[{context.FunctionDefinition.Name}] + {logMessage}");
 
 
         try
@@ -72,31 +72,37 @@ public class TraceabilityAPI
 
                 db?.CreateDocument(cte, _logger);
                 logMessage = "Processed cte with ID: " + cte.Id;
-                _logger.LogInformation(methodScope + logMessage);
+                _logger.LogInformation( logMessage);
             }
 
-            logMessage = "Processed " + arrayCounter.ToString() + " records.";
-            _logger.LogInformation(methodScope + logMessage);
-            
-            return new JsonResult(new { status = "success", message = logMessage });
+            _logger.LogInformation($"[{context.FunctionDefinition.Name}] + {logMessage}");
+
+            response = req.CreateResponse(HttpStatusCode.Created); // 201 Created
+            await response.WriteAsJsonAsync(new { function = context.FunctionDefinition.Name, status = "success", message = logMessage });
+            return response;
+
         }
         catch (CosmosException de)
         {
             Exception baseException = de.GetBaseException();
-            _logger.LogInformation("CosmosDB {0} error occurred: {1}", de.StatusCode, de);
-            return new JsonResult(new { error = true, errorMsg = de.Message });
+            _logger.LogError($"[{context.FunctionDefinition.Name}] {errorMsg}");
+
+            response = req.CreateResponse(HttpStatusCode.InternalServerError); // 501 Precondition Required
+            await response.WriteAsJsonAsync(new { function = context.FunctionDefinition.Name, error = true, errorMsg = errorMsg });
+            return response;
         }
         catch (Exception e)
         {
-            _logger.LogInformation("General error: {0}", e);
-            return new JsonResult(new { error = true, errorMsg = e.Message });
+            response = req.CreateResponse(HttpStatusCode.InternalServerError); // 501 Precondition Required
+            await response.WriteAsJsonAsync(new { function = context.FunctionDefinition.Name, error = true, errorMsg = errorMsg, errorDetail = e.Message });
+            return response;
         }
         finally
         {
             if (rs != null)
             {
                 logMessage = "Final result: " + Newtonsoft.Json.JsonConvert.SerializeObject(rs);
-                _logger.LogInformation(methodScope + logMessage);
+                _logger.LogInformation( logMessage);
             }
         }
     }
