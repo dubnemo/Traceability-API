@@ -8,3 +8,26 @@ This Function application implements the AgGateway Traceability API particularly
 ## Endpoints
 The endpoints are defined by the OpenAPI specification generated from the NIST Score tool, and developed by the AgGateway Traceability Work Group.
 
+### Critical Tracking Event
+POST /traceability/V1/critical-tracking-event
+POST /traceability/V1/critical-tracking-event-list
+GET /traceability/V1/critical-tracking-event-list
+GET /traceability/V1/critical-tracking-event/{id}
+PATCH /traceability/V1/critical-tracking-event/{id}
+
+### Field Operations
+POST /traceability/V1/operation
+PATCH /traceability/V1/operation/{id}
+POST /traceability/V1/operator-party
+GET /traceability/V1/container/{id}
+GET /traceability/V1/container-list
+GET /traceability/V1/device-resource-list
+GET /traceability/V1/field/{id}
+GET /traceability/V1/field-list
+
+### Traceable Resource Unit
+POST /traceability/V1/traceable-resource-unit
+GET /traceability/V1/traceable-resource-unit/{id}
+PATCH /traceability/V1/traceable-resource-unit/{id}
+GET /traceability/V1/traceable-resource-unit-list
+PATCH /traceability/traceable-resource-unit/{id}/V1/container-state
