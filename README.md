@@ -31,3 +31,11 @@ GET /traceability/V1/traceable-resource-unit/{id}
 PATCH /traceability/V1/traceable-resource-unit/{id}
 GET /traceability/V1/traceable-resource-unit-list
 PATCH /traceability/traceable-resource-unit/{id}/V1/container-state
+
+# Co-Pilot Prompt
+Complete this function app by adding an HttpTrigger implementation of all the endpoints specified in the OpenAPI yml file in this project, ensuring that parameters are properly handled as specified with the endpoint.  Each JSON payload in either the request body or response will reference the appropriate 'type' specified in the Model folder as related to the resource definition in the endpoint path, with a conversion from the '-' dash notation to the UpperCamelCase notation defined in the Model. All JSON will be persisted in the Cosmos DB.  All PATCH operations will implement the upsert pattern, by retrieving the JSON by id or uuid, applying the Newtonsoft JSONPatch method already created in the helper class in this project, then replacing the JSON in the Cosmos DB container.
+
+Sure, but use the existing workspace, the existing CosmosNoSQLAdapter.cs capabilities rewriting if necessary, and retain the OpenAPI yml file in the existing yml folder.  Ensure the isolidate worker model is used, as in the existing function-app-traceability-api.cs files.   Remove the function-app-traceability-api.cs file after migrating to CriticalTrackingEventListFunction.cs
+
+
+Define the next steps to add new Agentic capabilities to the traceability capabilities defined in this OpenAPI yml.  Determine if the exist function app can be extended (ideal) or whether it is necessary to create a new agent app.  Ensure the the necessary MCP server protocols are able to interoperate with the OpenAPI specification in this yml. Define a mapping from the OpenAPI yml description keywords to that needed in the agent registry.
